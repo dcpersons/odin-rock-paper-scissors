@@ -1,0 +1,66 @@
+// Make computer get random number from 0-2
+// Assign rock for 0, paper for 1, scissors for 2 and save as variable "cpu"
+function getComputerChoice() {
+    let n = (Math.floor(Math.random() * 3))
+    if (n === 0) {
+        return "rock"
+    } else if (n === 1) {
+        return "paper"
+    } else {return "scissors"}
+}
+
+
+
+// Prompt player for a choice and save as variable "player"
+let cpuScore = 0
+let playerScore = 0
+let player = prompt("Please type rock, paper, or scissors.", "")
+let outcome
+playGame()
+// Set score variables for cpu and player, cpuScore and playerScore
+
+
+// Runs the playRound function 5 times
+// 
+function playGame() {
+    for (let i = 4; ; ) {
+        playRound();
+        player = prompt(`The score is currently ${playerScore} for you and ${cpuScore} for the computer and there are ${i} rounds left. 
+        Please type rock, paper, or scissors to play again`, "")
+        if (i === 1) {
+            if (playerScore > cpuScore) {
+                outcome = "win";
+            } else if (playerScore < cpuScore) {
+                outcome = "lose";
+            } else {
+                outcome = "tie";
+            } 
+            alert(`The final score is ${playerScore} for you and ${cpuScore} for the computer. You ${outcome}!` );
+            break
+        }
+        i--
+    }
+    
+// Assess who won overall
+
+
+// Converts "player" choice to lowercase
+// Runs getComputerChoise for the cpu
+// Compare "player" choice with "cpu" choice
+// If equal, results in a tie
+// Check all possible orientations for player win
+// If no player win, cpu wins
+    function playRound() {
+        player = player.toLowerCase()
+        cpu = getComputerChoice()
+        if (player === cpu) {
+            alert(`It was a tie. You both chose ${cpu}.`);
+        } else if ((player === "paper" && cpu === "rock")  || (player === "scissors" && cpu === "paper") || (player === "rock" && cpu === "scissors")) {    
+            alert(`You win this round. You chose ${player} which beats ${cpu}!`);
+            return playerScore += 1;
+        } else {
+            alert(`You lose this round. Sadly ${cpu} beats ${player}.`);
+            return cpuScore += 1;
+        }
+    }
+}
