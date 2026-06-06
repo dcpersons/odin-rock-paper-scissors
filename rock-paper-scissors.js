@@ -51,15 +51,17 @@ function playGame() {
 // Check all possible orientations for player win
 // If no player win, cpu wins
     function playRound() {
-        player = player.toLowerCase()
-        cpu = getComputerChoice()
-        if (player === cpu) {
-            alert(`It was a tie. You both chose ${cpu}.`);
-        } else if ((player === "paper" && cpu === "rock")  || (player === "scissors" && cpu === "paper") || (player === "rock" && cpu === "scissors")) {    
-            alert(`You win this round. You chose ${player} which beats ${cpu}!`);
+        playerChoice = player.toLowerCase()
+        cpuChoice = getComputerChoice()
+        if (playerChoice === cpuChoice) {
+            alert(`It was a tie. You both chose ${cpuChoice}.`);
+        } else if ((playerChoice === "paper" && cpuChoice === "rock")  || 
+        (playerChoice === "scissors" && cpuChoice === "paper") ||
+        (playerChoice === "rock" && cpuChoice === "scissors")) {    
+            alert(`You win this round. You chose ${playerChoice} which beats ${cpuChoice}!`);
             return playerScore += 1;
         } else {
-            alert(`You lose this round. Sadly ${cpu} beats ${player}.`);
+            alert(`You lose this round. Sadly ${cpuChoice} beats ${playerChoice}.`);
             return cpuScore += 1;
         }
     }
