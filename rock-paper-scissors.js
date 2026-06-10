@@ -9,37 +9,25 @@ let playerScore = 0;
 let playerChoice;
 let outcome;
 const buttons = document.querySelectorAll("button");
-const score = document.querySelector("score");
-const result = document.querySelector("result");
+const score = document.querySelector(".score");
+const results = document.querySelector(".results");
+
 
 // Add listeners to make "playerChoice" = button clicked
-buttons.forEach ((button) => button.addEventListener("click", (event) => {
+buttons.forEach ((button) => button.addEventListener("click", buttonPress))
+
+function buttonPress(button){
     playerChoice = event.target.className;
     playRound();
-}))
-
-// Run the playRound function 5 times
-// function playGame() {
-//     for (let i = 4; ; i--) {
-//         playRound();
-//         // Kicks in after final round is played.
-//         if (i === 0) {
-//             if (playerScore > cpuScore) {
-//                 outcome = "win";
-//             } else if (playerScore < cpuScore) {
-//                 outcome = "lose";
-//             } else {
-//                 outcome = "tie";
-//             };
-//             alert(`The final score is ${playerScore} for you and ${cpuScore} \
-// for the computer. You ${outcome}!` );
-//             break;
-//         // Updates player on current score and remaining rounds, asks for a new input
-//         } else player = prompt(`The score is currently ${playerScore} for you and \
-// ${cpuScore} for the computer and there are ${i} rounds left. 
-// Please type rock, paper, or scissors to play again`, "");
-//     };
-// };
+    score.textContent = `(You: ${playerScore}) (CPU: ${cpuScore})`;
+    if (playerScore == 5) {
+        results.textContent =`You win! Final score: ${playerScore} for you and ${cpuScore} for the computer!`;
+        buttons.forEach ((button) => button.removeEventListener("click", buttonPress));
+    } if (cpuScore == 5) {
+        results.textContent = `You lose! Final score: ${playerScore} for you and ${cpuScore} for the computer!`;
+        buttons.forEach ((button) => button.removeEventListener("click", buttonPress));
+    }
+}
 
 // Convert "player" choice to lowercase
 // Run getComputerChoise for the cpu
@@ -50,16 +38,16 @@ buttons.forEach ((button) => button.addEventListener("click", (event) => {
 function playRound() {
     cpuChoice = getComputerChoice();
     if (playerChoice === cpuChoice) {
-        result.textContent = `It was a tie. You both chose ${cpuChoice}.`;
+        results.textContent = `It was a tie. You both chose ${cpuChoice}.`;
     } else if (playerChoice === "paper" && cpuChoice === "rock"  || 
     playerChoice === "scissors" && cpuChoice === "paper" || 
     playerChoice === "rock" && cpuChoice === "scissors") {
-        result.textContent = `You win this round. You chose ${playerChoice} which beats ${cpuChoice}!`;
+        results.textContent = `You win this round. You chose ${playerChoice} which beats ${cpuChoice}!`;
         return playerScore += 1;
     } else {
-        result.textContent = `You lose this round. Sadly ${cpuChoice} beats ${playerChoice}.`;
+        results.textContent = `You lose this round. Sadly ${cpuChoice} beats ${playerChoice}.`;
         return cpuScore += 1;
-    };
+    } 
 };
 
 function getComputerChoice() {
